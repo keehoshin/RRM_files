@@ -1,0 +1,446 @@
+#########################################################################################################################
+#                                               Last modified on Mar. 25th,2025                                         #
+#        Created and Modified by Kee Ho Shin                                                                            #
+#########################################################################################################################
+
+ISL9238C
+
+[SENSE]
+#<resistor name>          <resistor value>      <possible values>     <gains according to values>    <Unit>
+<RS1>                         <2>                   <20, 10>              <1,1>                       <mOhm>
+
+[DAC]
+(I setting)
+#        <register name>           <register address>      <bit to use>         <LSB>                   <Unit>         <default value>
+        <Adapter Current Limit1_ddd>      <0x3F>                   <12:2>          <0.004>                   <A>            <1.5> 
+        <Adapter Current Limit2>      <0x3B>                   <12:2>          <0.004>                   <A>            <1.5>
+	<Charge Current Limit>        <0x14>                   <12:2>          <0.004>                   <A>             
+(V setting)
+	<MaxSysVoltage>               <0x15>                   <14:3>          <0.008>                  <V>              <12.576>
+        <MinSysVoltage>               <0x3E>                   <13:8>          <0.256>                  <V>              <7.68>
+	<ACProchot>                  <0x47>                   <12:7>          <0.128>                   <A>              <3.072>
+        <DCProchot>                  <0x48>                   <13:8>          <0.256>                   <A>              <4.096> 
+(OTG)
+        <OTG Voltage>                 <0x49>                   <14:3>          <0.012>                   <V>             <5.004>
+        <OTG Current>                 <0x4A>                   <12:5>          <0.032>                   <V>             <0.512>
+	<Input Voltage>               <0x4B>                   <13:8>          <0.3413>                  <V>             <4.096>
+
+(MANUFACTOR)
+	<Manufac ID>                 <0xFE>                   <15:0>           <1>                       <NA>
+	<Device ID>                  <0xFF>                   <15:0>           <1>                       <NA>
+
+                              
+
+[CONTROL]
+  (Control0 0x39)
+    <0> <Reverse Buck Phase Comparator Offset, Refer to Bit[9:8]>
+        {0:0} =D
+        {1:1}
+    <1> <Forced Forward Buck Mode>
+        {0:Disable} =D
+        {1:Enable}   
+    <2> <Input Volatge Regulation>
+        {0: Enable} =D
+        {1: Disable}
+    <4:3> <DCProchot in Battery Only Mode Low Power Mode>
+        {00: 12A} =D
+        {01: 10A}
+        {10: 8A}
+        {11: 6A}
+    <6:5> <High side FET short Detection Threshold>
+        {00: 400mV} =D
+        {01: 500mV}
+        {10: 600mV}
+        {11: 800mV}
+    <7> <SMBus Time out Function>
+        {0:Enable} =D
+        {1:Disable} 
+    <9:8> <Reverse Buck Phase Comparator Offset-Ctrl0[9,8,0]>
+        {000:  0mV / 001: 1mV} =D
+        {010:  2mV / 011: 3mV}
+        {100:  4mV / 101: -3mV}
+        {110: -2mV / 111: -1mV}
+    <12:10> <Boost phase comparator offset>
+        {000:  0.0mV} =D
+        {001: +0.5mV}
+        {010: +1.0mV}
+        {011: +1.5mV}
+        {100: -2.0mV}
+        {101: -1.5mV}
+        {110: -1.0mV}
+        {111: -0.5mV}
+    <15:13> <Forward Buck phase comparator offset>
+        {000:  0mV} =D
+        {001: +1.0mV}
+        {010: +2.0mV}
+        {011: +3.0mV}
+        {100: -4.0mV}
+        {101: -3.0mV}
+        {110: -2.0mV}
+        {111: -1.0mV}
+
+  (Control1 0x3C)
+    <1:0> <Low VSYS Prochot Reference>
+        {00: 6.0V} =D
+        {01: 6.3V}
+        {10: 6.6V}
+        {11: 6.9V}
+    <2> <VSYS>
+        {0:Enable VSYS} =D
+        {1:Disable VSYS}
+    <3> <PSYS>
+        {0:Disable PSYS} =D
+        {1:Enable PSYS}
+    <4> <Select between AMON and BMON (default AMON)>
+        {0:AMON Selected} =D
+        {1:BMON Selected}
+    <5> <AMON/BMON Function>
+        {0:AMON/BMON Function Enabled} =D
+        {1:AMON/BMON Function Disabled}
+   <6> <Ideal Diode Mode>
+        {0: Enabled} =D
+        {1: Disabled}
+    <9:8> <Swithching Frequency, Refer to Cntrl4 Bit[11]>
+        {00: Default} =D
+        {01: 839kHz}
+        {10: 723kHz}
+        {11: 635kHz}
+    <10> <Audio Fiter>
+        {0: Disabled} =D
+        {1: Enabled}
+    <11> <OTG Function>
+        {0: Disabled} =D
+        {1: Enabled}
+    <12> <Learn Mode >
+        {0: Disable} =D
+        {1: Enable}
+    <13> <Exit learn Mode if Vbat < Minsysvoltage >
+        {0: No} =D
+        {1: Yes}
+    <15:14> <General Purpose Comparator Debounce Time>
+        {00: 2us} =D
+        {01: 12us}
+        {10: 2ms}
+        {11: 5s}
+
+  (Control2 0x3D)
+    <0> <Pass-Through Mode>
+        {0: Disable} =D
+        {1: Enable}
+    <1> <WOCP Function>
+        {0: Enable} =D
+        {1: Disable}
+    <2> <CMOUT polarity>
+        {0:Normal} =D
+        {1:Reverse}
+    <3> <General purpose comparator>
+        {0:Enalbe} =D
+        {1:Disable}
+    <4> <CMIN Reference>
+        {0: 1.2V} =D
+        {1: 2.0V}
+    <5> <ASGATE in OTG Mode>
+        {0: Turn ON} =D
+        {1: Turn OFF}
+    <8:6> <PROCHOT Duration>
+        {000: 10ms} =D
+        {001: 20ms}
+        {010: 15ms}
+        {011: 5ms}
+        {100: 1ms}
+        {101: 0.5ms}
+        {110: 0.1ms}
+        {111: 0ms}
+    <10:9> <PROCHOT Debounce Time>
+        {00: 7us} =D
+        {01: 100us}
+        {10: 600us}
+        {11: 1ms}
+    <11> <Adapter Insertion Debounce>
+        {0: 1.3s} =D
+        {1: 150ms}
+    <12> <Two level adapter Current Limit>
+        {0: Disable} =D
+        {1: Enable}
+    <13> <OTG Mode Debounce time-Refer to [Ctrl2[13],Ctrl3[0]]>
+        {00:  1.3s / 01: 1.3s} =D
+        {10: 150ms / 11:  1ms}
+    <15:14> <Trickle Charging Current>
+        {00: 256mA} =D
+        {01: 128mA}
+        {10: 64mA}
+        {11: 512mA}
+
+  (Control3 0x4C)
+    <0> <OTG Mode Debounce time - Refer to [Ctrl2[13],Ctrl3[0]]>
+        {00:  1.3s / 01: 1.3s} =D
+        {10: 150ms / 11:  1ms}
+    <1> <Buck-Boost mode Period - Refer to [Ctrl3[1], Ctrl4[8])>
+        {00: 0.6x / 01: 1x} =D
+        {10:   3x / 11: 2x}
+    <2> <Digital Reset>
+        {0: Idle} =D
+        {1: Reset}
+    <3> <AMON/BMON direction (see Ctrl1 bit[4])>
+        {0: Forward} =D
+        {1: Reverse}
+    <4> <Input Current Limit Control when BATGONE=1>
+        {0:Enable ACLIM when BATGONE=1} =D
+        {1:Disable ACLIM when BATGONE=1}
+    <5> <Input Current Limit Control>
+        {0:Enable} =D
+        {1:Disable}
+    <6> <Current Feedback Gain>
+        {0:Idle} =D
+        {1:0.5x}
+    <7> <Charging Mode>
+        {0: Autonomous Charging}
+        {1: SMBus control} =D
+    <8> <Exit IDM Timer>
+        {0: 40ms} =D
+        {1: 80ms}
+    <9> <PSYS Gain>
+        {0: 1.44uA/W} =D
+        {1: 0.723uA/W}
+    <10> <BGATE Force OFF>
+        {0:Disable} =D
+        {1:Enable}
+    <12:11> <SMBus Timer>
+        {00: 175s} =D
+        {01: 87.5s}
+        {10: 43.75s}
+        {11: 5s}
+    <13> <Autonomous Charging Timer>
+        {0:  20ms}
+        {1: 200ms}
+    <14> <ACLIM Reload >
+        {0: Enable}
+        {1: Disable}
+    <15> <PROG Re-read>
+        {0: Yes}
+        {1: No}
+
+  (Control4 0x4E)
+    <0> <PROCHOT Reset>
+        {0: Auto}
+        {1: Manual}
+    <1> <PROCHOT Clear>
+        {0: Idle}
+        {1: Clear}
+    <3:2> <ACOK/BATGONE PROCHOT Debounce>
+        {00:   2us}
+        {01:  25us}
+        {10: 125us}
+        {11: 256us}
+    <4> <General Comparator PROCHOT>
+        {0:Disable} 
+        {1:Enable}
+    <5> <ACOK PROCHOT>
+        {0: Disable}
+        {1: Enable}
+    <6> <BATGONE PROCHOT>
+        {0: Disable}
+        {1: Enable}
+    <7> <OTG Current PROCHOT>
+        {0: Disable}
+        {1: Enable}
+    <8> <Buck-Boost mode Period - Refer to [Ctrl3[1], Ctrl4[8])>
+        {00: 0.6x / 01: 1x} =D
+        {10:   3x / 11: 2x}
+    <9> <Buck-Boost T2 Time in DCM>
+        {0: Reduced}
+        {1: Normal}
+    <11> <BGATE Tri-State>
+        {0: Disable}
+        {1: Enable}
+    <12> <VOUT Discharge>
+        {0: Disable}
+        {1: Enable}
+    <13> <ADP pin Discharge>
+        {0: Disable}
+        {1: Enable}
+    <15:14> <Dither>
+        {00: Disable} =D
+        {01: 100~102%}
+        {10: 100~104%}
+        {11: 100~106%}
+
+  (Control5 0x38)
+    <2:0> <ACLIMIT T1>
+        {000: 10ms}
+        {001: 20ms}
+        {010: 15ms}
+        {011: 5ms}
+        {100: 1ms}
+        {101: 0.5ms}
+        {110: 0.1ms}
+        {111: 0ms}
+    <3> <Supplemental mode>
+        {0: Disable Supplemental mode}
+        {1: Enable Supplemental mode}
+    <4> <GM_SUP>
+        {0: 1x}
+        {1: 2x}
+    <5> <OTGPG PROCHOT at OTG startup in supplemental mode>
+        {0: Enable}
+        {1: Disable}
+    <7:6> <Adapter Low Threshold>
+        {00: 7.2V}
+        {01: 8.0V}
+        {10: 8.8V}
+        {11: 9.6V}
+    <10:8> <ACLIM T2 time>
+        {000: 10us}
+        {001: 100us}
+        {010: 500us}
+        {011: 1ms}
+        {100: 300us}
+        {101: 750us}
+        {110: 2ms}
+        {111: 10ms}
+    <11> <Adapter Low Threshold in Supplemental Mode>
+        {0: Mode1}
+        {1: Mode2}
+    <13:12> <R_SUP>
+        {00: Vref 1.35V Rr 1.35M}
+        {01: Vref 1.20V Rr 1.35M}
+        {10: Vref 1.20V Rr 2.70M}
+        {11: Vref 0.00V Rr 2.70M}
+    <14> <Sets the Supplemental Buck Mode Period(T_SUP)>
+        {0: 6} =D
+        {1: 10}
+    <15> <Sets the Supplemental Mode Period(T_SUPM) multiplier>
+        {0: 2x}
+        {1: 1x}
+
+  (Control6 0x37)
+    <2:0> <VSYS Under Voltage Threshold>
+        {000: Disable}
+        {001: 3.0V} 
+        {010: 3.9V}
+        {011: 4.8V} =D
+        {100: 5.7V}
+        {101: 6.6V}
+        {110: 7.5V}
+        {111: 8.4V}
+    <3> <CMOUT Latch >
+        {0: Enable}
+        {1: Disable}
+    <4> <CMOUT Latch Clear>
+        {0: Read CMOUT low}
+        {1: Write to Clear/Read CMOUT High}
+    <5> <OTG Under Voltage Protection>
+        {0: Enable}
+        {1: Disable}
+    <6> <Charge Current,MaximumVsys Voltage, and OTG Voltage Slew Control>
+        {0: Disable} =D
+        {1: Enable}
+    <7> <Turn OFF BAGTE at VSYSOV>
+        {0: Disable}
+        {1: Enable}
+
+
+[INFO]
+    (Info1 0x3A)
+        <4> <Trickle Charge mode>
+            {0: Trickle charge mode is not active}
+            {1: Trickle charge mode is active}
+        <10> <Low VSYS PROCHOT >
+            {0: Low VSYS PROCHOT is not asserted}
+            {1: Low VSYS PROCHOT is asserted}
+        <11> <DCPROCHOT >
+            {0: DCPROCHOT is not asserted}
+            {1: DCPROCHOT is asserted}
+        <12> <ACPROCHOT >
+            {0: ACPROCHOT is not asserted}
+            {1: ACPROCHOT is asserted}
+        <14:13> <Control Loop Info>
+            {00: Max System Voltage control loop is active}
+            {01: Charging current control loop is active}
+            {10: Adapter current limit loop is active}
+            {11: Input voltage loop is active}
+        <15> <Reference Active>
+            {0: Reference is not active}
+            {1: Reference is active}
+
+      
+    (Info2 0x4D)
+        <4:0> <PROG Pin Readout>
+            {00000:NA}
+            {00001:NA}
+            {00010:NA}
+            {00011:NA}
+            {00100:NA}
+            {00101:NA} 
+            {00110:2-Cell, 723kHz, 1.5A, Auto Charging } 
+            {00111:2-Cell, 723kHz, 0.476A, Auto Charging }
+            {01000:2-Cell, 1MHz, 0.476A, No Auto Charging } 
+            {01001:2-Cell, 1MHz, 1.5A, No Auto Charging}
+            {01010:2-Cell, 723kHz, 1.5A, No Auto Charging  }
+            {01011:2-Cell, 723kHz, 0.476A, No Auto Charging }
+            {01100:3-Cell, 723kHz, 0.476A, No Auto Charging }
+            {01101:3-Cell, 723kHz, 1.5A, No Auto Charging }
+            {01110:3-Cell, 1MHz, 1.5A, No Auto Charging }
+            {01111:3-Cell, 1MHz, 0.476A, No Auto Charging }
+            {10000:3-Cell, 723kHz, 0.476A,  Auto Charging}
+            {10001:3-Cell, 723kHz, 1.5A,  Auto Charging }
+            {10010:4-Cell, 723kHz, 1.5A,  Auto Charging}
+            {10011:4-Cell, 723kHz, 0.476A,  Auto Charging}
+            {10100:4-Cell, 1MHz, 0.476A, No Auto Charging}
+            {10101:4-Cell, 1MHz, 1.5A, No Auto Charging} 
+            {10110:4-Cell, 1MHz, 1.5A, No Auto Charging} 
+            {10111:4-Cell, 723kHz, 0.476A, No Auto Charging}
+            {11000:NA} 
+            {11001:NA}
+            {11010:NA}
+            {11011:NA}
+            {11100:NA}
+            {11101:NA}
+            {11110:NA}
+            {11111:NA}
+        <7:5> <Power stage boost mode>
+            {000:Power stage mode=N/A }
+            {001:Power stage mode=Boost mode}
+     	    {010:Power stage mode=Buck mode}
+            {011:Power stage mode=Buck-Boost mode}
+	    {100:NA}
+            {101:Power stage mode=OTG Boost mode}
+            {110:Power stage mode=OTG Buck mode}
+            {111:Power stage mode=OTG Buck-Boost mode}
+        <11:8> <State Machine Info>
+            {0000: OFF}
+            {0001: BATTERY}
+            {0010: ADAPTER}
+            {0011: ACOK}
+            {0100: VSYS}
+            {0101: CHARGE} 
+            {0110: ENOTG} 
+            {0111: OTG}
+            {1000: ENLDO5} 
+            {1001: NA}
+            {1010: TRIM/ENCHREF}
+            {1011: ACHRG}
+            {1100: CAL}
+            {1101: AGON/AGONTG}
+            {1110: WAIT/PSYS}
+            {1111: ADPPSYS}
+        <12> <BATGONE>
+            {0:BATGONE Low}
+            {1:BATGONE High}
+        <13> <General Purpose Comparator>
+            {0:Comparator output is low }
+            {1:Comparator output is high}
+         <14> <ACOK pin status>
+            {0:ACOK Low }
+            {1:ACOK high}
+
+    (Info3 0x90)
+        <1> <Pass-Through Mode>
+            {0: Not in Pass Through Mode}
+            {1: In Pass Through Mode}
+
+# A function that writes the DAC registers values set by user at set timer interval 
+# to prevent DAC values from being reset due to the SMBus timeout function.
+[TIMER]
+#       <showing title>                       <timer interval unit sec>
+        <WRITE SMBus interval>                <1>      
