@@ -1,0 +1,302 @@
+#########################################################################################################################
+#                                               Last modified on March 11th,2025                                        #
+#                                                                                             by Kee HO Shin            #
+#########################################################################################################################
+
+ISL95538
+
+[SENSE]
+#<resistor name>          <resistor value>      <possible values>     <gains according to values>    <Unit>
+<RS1>                         <2>                   <20, 10>              <1,1>                       <mOhm>
+
+[DAC]
+(I setting)
+#   <register name>               <register address>      <bit to use>         <LSB>                   <Unit>         <default value>
+    <Forward Input Current>           <0x3F>                <12:2>            <0.004>                   <A>             <1.5>
+    <Reverse Output Current>          <0x4A>                <12:7>            <0.128>                   <A>             <0.512>
+    <System Current Limit>            <0x14>                <12:2>            <0.004>                   <A>             <1.5>
+
+(V setting)
+	<Forward Regulating Voltage>      <0x15>                <14:3>            <0.012>                   <V>
+    <Reverse Regulating Voltage>      <0x49>                <14:3>            <0.012>                   <V>             <5.004>
+	<Input Voltage Limit >            <0x4B>                <13:8>            <0.512>                   <V>             <4.096>
+     
+(PROCHOT setting)
+	<ADP Side PROCHOT>                <0x47>                <12:7>            <0.128>                   <A>             <3.072>
+    <System Side PROCHOT>             <0x48>                <13:8>            <0.256>                   <A>             <4.096>
+	
+(MANUFACTOR)
+	<Manufac ID>                      <0xFE>                   <15:0>           <1>                      <NA>
+	<Device ID>                       <0xFF>                   <15:0>           <1>                      <NA>
+#	<Part ID>                         <0xFF>                   <15:0>           <1>                      <NA>
+
+[CONTROL]
+  (Control0 0x39)
+    <0> <System Side Active Discharge Current>
+        {0: Disable} =D
+        {1: Enable}
+    <1> <ADP Side Active Discharge Current>
+        {0:Disable} =D
+        {1:Enable}   
+    <2> <Input Volatge Regulation>
+        {0: Enable} =D
+        {1: Disable}
+    <6:5> <High side FET Short Detection Threshold>
+        {00: 400mV} =D
+        {01: 500mV}
+        {10: 600mV}
+        {11: 800mV}
+    <9:8> <Reverse Buck/Buck-Boost phase comp offset>
+        {00: 0mV} =D
+        {01:+1mV}
+        {10:-2mV}
+        {11:-1mV}
+    <12:10> <Boost Phase Comparator Offset>
+        {000:  0.0mV} =D
+        {001: +0.5mV}
+        {010: +1.0mV}
+        {011: +1.5mV}
+        {100: -2.0mV}
+        {101: -1.5mV}
+        {110: -1.0mV}
+        {111: -0.5mV}
+    <15:13> <Forward Buck/BB Phase Comparator Offset>
+        {000:  0mV} =D
+        {001: +0.5mV}
+        {010: +1.0mV}
+        {011: +1.5mV}
+        {100: -2.0mV}
+        {101: -1.5mV}
+        {110: -1.0mV}
+        {111: -0.5mV}
+
+  (Control1 0x3C)
+    <0> <Force 5.04V VDAC in FWD and REV Mode>
+        {0: Disable} =D
+        {1: Enable}
+    <1> <0V During Slew-down>
+        {0: Enable} =D
+        {1: Disable}
+    <2> <Stop Switching in FWD Mode>
+        {0: Enable Switching} =D
+        {1: Disable Switching}		
+    <3> <Fast REF Mode>
+        {0:Disable} =D
+        {1:Enable}
+    <4> <Bypass Mode>
+        {0:Disable} =D
+        {1:Enable}
+    <5> <Rsense2 Current Amp in FWD Mode without ADP>
+        {0:Enable} =D
+        {1:Disable}
+    <9:7> <Swithching Frequency, Refer to Cntrl4 Bit[11]>
+        {000: Default by PROG pin} =D
+        {001: 913kHz}
+        {010: 839kHz}
+        {011: 777kHz}
+		{100: 723kHz}
+        {101: 676kHz}
+        {110: 635kHz}
+        {111: 599kHz}
+    <10> <Audio Fiter>
+        {0: Disabled} =D
+        {1: Enabled}
+    <11> <Reverse Mode>
+        {0: Disabled} =D
+        {1: Enabled}
+    <12> <Skip AutoZero for Fast Restart Control>
+        {0: No} =D
+        {1: Yes}
+    <13> <Skip Trim for Fast Restart Control>
+        {0: No} =D
+        {1: Yes}
+    <14> <Sinking Current During Negative DAC Transition>
+        {0: Enable} =D
+        {1: Disable}		
+    <15> <Disable Diode Emulator Comparator>
+        {0: No} =D
+        {1: Yes}
+
+  (Control2 0x3D)
+    <0> <System Side WOC Threshold>
+        {0:20mV} =D
+        {1:30mV}
+    <1> <WOC Fault Operation>
+        {0:Enable} =D
+        {1:Disable}		
+    <3> <Forward Fast Swap>
+        {0:Disable} =D
+        {1:Enable}
+    <4> <Reverse Fast Swap>
+        {0: Disable} =D
+        {1: Enable}	
+    <8:6> <PROCHOT Duration>
+        {000: 10ms} =D
+        {001: 20ms}
+        {010: 15ms}
+        {011: 5ms}
+        {100: 1ms}
+        {101: 0.5ms}
+        {110: 0.1ms}
+        {111: 0ms}
+    <10:9> <PROCHOT Debounce Time>
+        {00: 10us} =D
+        {01: 100us}
+        {10: 500us}
+        {11: 1ms}
+    <11> <Forward Restart Debounce for Forward Enable>
+        {0: 1.3s} =D
+        {1: 150ms}
+    <12> <Fault Restart Debounce - depends on Ctrl2 bit[13]>
+        {0: 1.3s or 150ms} =D
+        {1: 200us or 10us}
+    <13> <Fault Restart Debounce for Reverse Enable>
+        {0: 1.3s} =D
+        {1: 150ms}
+    <14> <UV Control>
+        {0: Enable} =D
+        {1: Disable}
+    <15> <OV Control>
+        {0: Enable} =D
+        {1: Disable}		
+
+  (Control3 0x4C)
+    <0> <PGOOD Setting>
+        {0:Suppress Until VREF=VDAC} =D
+        {1:Assert When Switching Start}
+    <1> <Operate at 0.5x Freq in Buck-Boost Mode>
+        {0: Disable 0.5x} =D
+        {1: Enable 0.5x}
+    <2> <Digital Reset>
+        {0:Idle} =D
+        {1:Reset}
+    <3> <Enable REF>
+        {0:External} =D
+        {1:Internal}
+    <5> <Input Current Current Limit Control Loop>
+        {0:Enable} =D
+        {1:Disable}
+    <6> <Current Feedback Gain>
+        {0:Ideal} =D
+        {1:0.5x}
+    <10:8> <Exit IDM timer-with Ctrl7[7]Ctrl3[8]>
+        {000: System Led Operating Mode} =D
+        {001: Same as 000}
+        {010: Same as 000}
+		{011: Same as 000}
+		{100: No Switching, Not used}
+		{101: Buck Mode}
+		{110: Boost Mode}
+		{110: Buck-Boost Mode}
+    <11> <Forward Startup Debounce Time>
+        {0:200us} =D
+        {1:10us}
+    <12> <Reverse Startup Debounce Time>
+        {0:200us} =D
+        {1:10us}
+    <15> <PROG Re-read>
+        {0: Yes}
+        {1: No}
+
+  (Control4 0x4E)
+    <0> <PROCHOT Latch>
+        {0: Auto} =D
+        {1: Manual}
+    <1> <PROCHOT Clear>
+        {0: Idle} =D
+        {1: Clear}
+    <6> <Forward Sleep Mode>
+        {0: Disable} =D
+        {1: Enable}
+    <7> <Reverse Current PROCHOT>
+        {0: Disable} =D
+        {1: Enable}
+
+		
+[INFO]
+    (Info1 0x3A)
+        <11> <System Side PROCHOT >
+            {0: SystemSidePROCHOT is not asserted}
+            {1: SystemSidePROCHOT is asserted}
+        <12> <ADP Side PROCHOT >
+            {0: ADPSidePROCHOT is not asserted}
+            {1: ADPSidePROCHOT is asserted}
+        <14:13> <Control Loop Info>
+            {00: Voltage control loop is active}
+            {01: System current loop is active}
+            {10: ADP Current Limit loop is active}
+            {11: Input voltage loop is active}
+        <15> <Reference Active>
+            {0: Reference is not active}
+            {1: Reference is active}
+
+    (Info2 0x4D)
+        <4:0> <PROG Pin Readout>
+            {00000: }
+            {00001: }
+            {00010: }
+            {00011: }
+            {00100: }
+            {00101: } 
+            {00110: } 
+            {00111: }
+            {01000: } 
+            {01001: }
+            {01010: }
+            {01011: }
+            {01100: }
+            {01101: }
+            {01110: }
+            {01111: }
+            {10000: }
+            {10001: }
+            {10010: }
+            {10011: }
+            {10100: }
+            {10101: } 
+            {10110: } 
+            {10111: }
+            {11000: } 
+            {11001: }
+            {11010: }
+            {11011: }
+            {11100: }
+            {11101: }
+            {11110: }
+            {11111: }
+        <7:5> <Power Stage Mode>
+            {000: N/A }
+            {001: Forward Boost}
+     	    {010: Forward Buck}
+            {011: Forward Buck-Boost}
+	        {100: N/A}
+            {101: Reverse Boost}
+            {110: Reverse Buck}
+            {111: Reverse Buck-Boost}
+        <11:8> <State Machine Info>
+            {0000: OFF}
+            {0001: N/A}
+            {0010: ADAPTER}
+            {0011: N/A}
+            {0100: VSYS}
+            {0101: N/A} 
+            {0110: Enable Reverse mode} 
+            {0111: N/A}
+            {1000: Enable LDO5} 
+            {1001: N/A}
+            {1010: N/A}
+            {1011: N/A}
+            {1100: N/A}
+            {1101: N/A}
+            {1110: WAIT}
+            {1111: N/A}
+         <14> <Forward Switching>
+            {0:Not Enabled }
+            {1:Enabled}
+			
+# A function that writes the DAC registers values set by user at set timer interval 
+# to prevent DAC values from being reset due to the SMBus timeout function.
+[TIMER]
+#       <showing title>                       <timer interval unit sec>
+        <WRITE SMBus interval>                <1>      
+
